@@ -15,7 +15,7 @@
 }
 
 body {
-	min-width: 320px; /* Minimum width for mobile devices */
+	min-width: 350px; /* Suppose you want minimum width of 1000px */
 	width: auto !important; /* Firefox will set width as auto */
-	width: 320px; /* As IE6 ignores !important it will set width as 320px; */
+	width: 350px; /* As IE6 ignores !important it will set width as 1000px; */
 }

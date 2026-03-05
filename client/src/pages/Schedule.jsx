@@ -163,12 +163,12 @@ const Schedule = () => {
 	}
 
 	return (
-		<div className="flex min-h-screen flex-col gap-4 bg-gradient-to-br from-red-900 to-red-500 pb-8 text-gray-900 sm:gap-8">
+		<div className="flex min-h-screen flex-col gap-4 bg-gradient-to-br from-indigo-900 to-blue-500 pb-8 text-gray-900 sm:gap-8">
 			<Navbar />
 			<CinemaLists {...props} />
 			{selectedCinemaIndex !== null &&
 				(cinemas[selectedCinemaIndex]?.theaters?.length ? (
-					<div className="mx-4 flex flex-col gap-2 rounded-lg bg-gradient-to-br from-red-200 to-red-100 p-4 drop-shadow-xl sm:mx-8 sm:gap-4 sm:p-6">
+					<div className="mx-4 flex flex-col gap-2 rounded-lg bg-gradient-to-br from-indigo-200 to-blue-100 p-4 drop-shadow-xl sm:mx-8 sm:gap-4 sm:p-6">
 						<h2 className="text-3xl font-bold text-gray-900">Schedule</h2>
 						<DateSelector selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 						{auth.role === 'admin' && (

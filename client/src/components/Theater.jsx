@@ -156,7 +156,7 @@ const Theater = ({ theaterId, movies, selectedDate, filterMovie, setSelectedDate
 					{theater.number}
 				</h3>
 				{auth.role === 'admin' && (
-					<div className="flex w-fit flex-col gap-x-3 rounded-tr-2xl bg-gradient-to-br from-red-800 to-red-700 px-4 py-0.5 font-semibold text-white md:flex-row md:gap-x-6 md:rounded-t-2xl md:text-lg md:font-bold">
+					<div className="flex w-fit flex-col gap-x-3 rounded-tr-2xl bg-gradient-to-br from-indigo-800 to-blue-700 px-4 py-0.5 font-semibold text-white md:flex-row md:gap-x-6 md:rounded-t-2xl md:text-lg md:font-bold">
 						<div className="flex items-center gap-2">
 							<ArrowsUpDownIcon className="h-5 w-5" />
 							{theater?.seatPlan?.row === 'A' ? (
@@ -321,14 +321,14 @@ const Theater = ({ theaterId, movies, selectedDate, filterMovie, setSelectedDate
 							<button
 								title="Add showtime"
 								disabled={isAddingShowtime}
-								className="whitespace-nowrap rounded-md bg-gradient-to-r from-red-600 to-red-500 px-2 py-1 font-medium text-white drop-shadow-md hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
+								className="whitespace-nowrap rounded-md bg-gradient-to-r from-indigo-600 to-blue-500 px-2 py-1 font-medium text-white drop-shadow-md hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
 								type="submit"
 							>
 								ADD +
 							</button>
 						</form>
 						{filterMovie?.name && (
-							<div className="mx-4 flex gap-2 rounded-md bg-gradient-to-r from-red-600 to-red-500 p-2 text-white">
+							<div className="mx-4 flex gap-2 rounded-md bg-gradient-to-r from-indigo-600 to-blue-500 p-2 text-white">
 								<InformationCircleIcon className="h-6 w-6" />
 								{`You are viewing the showtimes of "${filterMovie?.name}"`}
 							</div>

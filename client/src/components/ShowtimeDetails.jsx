@@ -128,7 +128,7 @@ const ShowtimeDetails = ({ showDeleteBtn, showtime, fetchShowtime }) => {
 					{!showtime.isRelease && (
 						<button
 							title="Edit cinema name"
-							className="flex w-fit items-center gap-1 rounded-md bg-gradient-to-r from-red-600 to-red-500  py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
+							className="flex w-fit items-center gap-1 rounded-md bg-gradient-to-r from-indigo-600 to-blue-500  py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
 							onClick={() => handleReleaseShowtime(true)}
 							disabled={isReleasingShowtime}
 						>
@@ -145,7 +145,7 @@ const ShowtimeDetails = ({ showDeleteBtn, showtime, fetchShowtime }) => {
 					{showtime.isRelease && (
 						<button
 							title="Edit cinema name"
-							className="flex w-fit items-center gap-1 rounded-md bg-gradient-to-r from-red-600 to-red-500  py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
+							className="flex w-fit items-center gap-1 rounded-md bg-gradient-to-r from-indigo-600 to-blue-500  py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
 							onClick={() => handleUnreleasedShowtime(true)}
 							disabled={isUnreleasingShowtime}
 						>
@@ -180,7 +180,7 @@ const ShowtimeDetails = ({ showDeleteBtn, showtime, fetchShowtime }) => {
 					<p className="text-sm">Theater</p>
 					<p className="text-3xl">{showtime?.theater?.number}</p>
 				</div>
-				<div className="flex w-fit grow items-center justify-center rounded-tr-lg bg-gradient-to-br from-red-800 to-red-700 px-4 py-0.5 text-center text-xl font-bold text-white sm:text-3xl">
+				<div className="flex w-fit grow items-center justify-center rounded-tr-lg bg-gradient-to-br from-indigo-800 to-blue-700 px-4 py-0.5 text-center text-xl font-bold text-white sm:text-3xl">
 					<p className="mx-auto">{showtime?.theater?.cinema.name}</p>
 					{!showtime?.isRelease && <EyeSlashIcon className="h-8 w-8" title="Unreleased showtime" />}
 				</div>
@@ -213,7 +213,7 @@ const ShowtimeDetails = ({ showDeleteBtn, showtime, fetchShowtime }) => {
                					 ${new Date(showtime?.showtime).toLocaleString('default', { month: 'long' })}
                 				${new Date(showtime?.showtime).getFullYear()}`}
 						</p>
-						<p className="mx-4 bg-gradient-to-r from-red-800 to-red-700 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl">
+						<p className="mx-4 bg-gradient-to-r from-indigo-800 to-blue-700 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl">
 							{showtime?.showtime &&
 								`${new Date(showtime?.showtime).getHours().toString().padStart(2, '0')} : ${new Date(
 									showtime?.showtime
