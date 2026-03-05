@@ -92,7 +92,7 @@ const Showtimes = ({ showtimes, movies, selectedDate, filterMovie, showMovieDeta
 																	(s) => new Date(s.showtime) > new Date()
 																).showtime
 														  ).getTime()
-														? 'flex items-center gap-1 rounded-md bg-gradient-to-br from-indigo-600 to-blue-500 px-2 py-1 text-lg text-white drop-shadow-sm hover:from-indigo-500 hover:to-blue-400'
+														? 'flex items-center gap-1 rounded-md bg-gradient-to-br from-red-600 to-red-500 px-2 py-1 text-lg text-white drop-shadow-sm hover:from-red-500 hover:to-red-400'
 														: 'flex items-center gap-1 rounded-md bg-gradient-to-br from-gray-600 to-gray-500 px-2 py-1 text-lg text-white drop-shadow-sm hover:from-gray-500 hover:to-gray-400'
 												}
 												onClick={() => {

@@ -112,9 +112,9 @@ const User = () => {
 	}
 
 	return (
-		<div className="flex min-h-screen flex-col gap-4 bg-gradient-to-br from-indigo-900 to-blue-500 pb-8 text-gray-900 sm:gap-8">
+		<div className="flex min-h-screen flex-col gap-4 bg-gradient-to-br from-red-900 to-red-500 pb-8 text-gray-900 sm:gap-8">
 			<Navbar />
-			<div className="mx-4 flex h-fit flex-col gap-2 rounded-lg bg-gradient-to-br from-indigo-200 to-blue-100 p-4 drop-shadow-xl sm:mx-8 sm:p-6">
+			<div className="mx-4 flex h-fit flex-col gap-2 rounded-lg bg-gradient-to-br from-red-200 to-red-100 p-4 drop-shadow-xl sm:mx-8 sm:p-6">
 				<h2 className="text-3xl font-bold text-gray-900">Users</h2>
 				<div className="relative drop-shadow-sm">
 					<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -128,7 +128,7 @@ const User = () => {
 					/>
 				</div>
 				<div
-					className={`mt-2 grid max-h-[60vh] overflow-auto rounded-md bg-gradient-to-br from-indigo-100 to-white`}
+					className={`mt-2 grid max-h-[60vh] overflow-auto rounded-md bg-gradient-to-br from-red-100 to-white`}
 					style={{ gridTemplateColumns: 'repeat(3, minmax(max-content, 1fr)) max-content max-content' }}
 				>
 					<p className="sticky top-0 bg-gradient-to-br from-gray-800 to-gray-700 px-2 py-1 text-center text-xl font-semibold text-white">
@@ -151,15 +151,15 @@ const User = () => {
 						.map((user, index) => {
 							return (
 								<Fragment key={index}>
-									<div className="border-t-2 border-indigo-200 px-2 py-1">{user.username}</div>
-									<div className="border-t-2 border-indigo-200 px-2 py-1">{user.email}</div>
-									<div className="border-t-2 border-indigo-200 px-2 py-1">{user.role}</div>
-									<div className="border-t-2 border-indigo-200 px-2 py-1">
+									<div className="border-t-2 border-red-200 px-2 py-1">{user.username}</div>
+									<div className="border-t-2 border-red-200 px-2 py-1">{user.email}</div>
+									<div className="border-t-2 border-red-200 px-2 py-1">{user.role}</div>
+									<div className="border-t-2 border-red-200 px-2 py-1">
 										<button
 											className={`flex items-center justify-center gap-1 rounded bg-gradient-to-r py-1 pl-2 pr-1.5 text-sm font-medium text-white  disabled:from-slate-500 disabled:to-slate-400
 										${
 											ticketsUser === user.username
-												? 'from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400'
+												? 'from-red-600 to-red-500 hover:from-red-500 hover:to-red-400'
 												: 'from-gray-600 to-gray-500 hover:from-gray-500 hover:to-gray-400'
 										}`}
 											onClick={() => {
@@ -171,10 +171,10 @@ const User = () => {
 											<TicketIcon className="h-6 w-6" />
 										</button>
 									</div>
-									<div className="flex gap-2 border-t-2 border-indigo-200 px-2 py-1">
+									<div className="flex gap-2 border-t-2 border-red-200 px-2 py-1">
 										{user.role === 'user' && (
 											<button
-												className="flex w-[115px] items-center justify-center gap-1 rounded bg-gradient-to-r from-indigo-600 to-blue-500 py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
+												className="flex w-[115px] items-center justify-center gap-1 rounded bg-gradient-to-r from-red-600 to-red-500 py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
 												onClick={() => onUpdateUser({ id: user._id, role: 'admin' })}
 												disabled={isUpdating}
 											>
@@ -184,7 +184,7 @@ const User = () => {
 										)}
 										{user.role === 'admin' && (
 											<button
-												className="flex w-[115px] items-center justify-center gap-1 rounded bg-gradient-to-r from-indigo-600 to-blue-500 py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
+												className="flex w-[115px] items-center justify-center gap-1 rounded bg-gradient-to-r from-red-600 to-red-500 py-1 pl-2 pr-1.5 text-sm font-medium text-white hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
 												onClick={() => onUpdateUser({ id: user._id, role: 'user' })}
 												disabled={isUpdating}
 											>

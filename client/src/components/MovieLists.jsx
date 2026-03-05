@@ -4,7 +4,7 @@ const MovieLists = ({ movies, search, handleDelete }) => {
 	const moviesList = movies?.filter((movie) => movie.name.toLowerCase().includes(search?.toLowerCase() || ''))
 
 	return !!moviesList.length ? (
-		<div className="grid grid-cols-1 gap-4 rounded-md bg-gradient-to-br from-indigo-100 to-white p-4 drop-shadow-md lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-[1920px]:grid-cols-5">
+		<div className="grid grid-cols-1 gap-4 rounded-md bg-gradient-to-br from-red-100 to-white p-4 drop-shadow-md lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-[1920px]:grid-cols-5">
 			{moviesList.map((movie, index) => {
 				return (
 					<div key={index} className="flex min-w-fit flex-grow rounded-md bg-white drop-shadow-md">

@@ -18,6 +18,8 @@ const Navbar = () => {
 	const { auth, setAuth } = useContext(AuthContext)
 	const [menuOpen, setMenuOpen] = useState(false)
 	const [isLoggingOut, SetLoggingOut] = useState(false)
+	const [searchQuery, setSearchQuery] = useState('')
+	const [isSearching, setIsSearching] = useState(false)
 
 	const toggleMenu = () => {
 		setMenuOpen(!menuOpen)
@@ -50,6 +52,15 @@ const Navbar = () => {
 		}
 	}
 
+	const handleSearch = async (e) => {
+		e.preventDefault()
+		if (!searchQuery.trim()) return
+
+		setIsSearching(true)
+		navigate(`/search-results?q=${encodeURIComponent(searchQuery)}`)
+		setIsSearching(false)
+	}
+
 	const menuLists = () => {
 		return (
 			<>
@@ -58,7 +69,7 @@ const Navbar = () => {
 						to={'/cinema'}
 						className={`flex items-center justify-center gap-2 rounded-md px-2 py-1 text-white hover:bg-gray-500 ${
 							window.location.pathname === '/cinema'
-								? 'bg-gradient-to-br from-indigo-800 to-blue-700'
+								? 'bg-gradient-to-br from-red-800 to-red-700'
 								: 'bg-gray-600'
 						}`}
 					>
@@ -69,7 +80,7 @@ const Navbar = () => {
 						to={'/schedule'}
 						className={`flex items-center justify-center gap-2 rounded-md px-2 py-1 text-white hover:bg-gray-500 ${
 							window.location.pathname === '/schedule'
-								? 'bg-gradient-to-br from-indigo-800 to-blue-700'
+								? 'bg-gradient-to-br from-red-800 to-red-700'
 								: 'bg-gray-600'
 						}`}
 					>
@@ -81,7 +92,7 @@ const Navbar = () => {
 							to={'/ticket'}
 							className={`flex items-center justify-center gap-2 rounded-md px-2 py-1 text-white hover:bg-gray-500 ${
 								window.location.pathname === '/ticket'
-									? 'bg-gradient-to-br from-indigo-800 to-blue-700'
+									? 'bg-gradient-to-br from-red-800 to-red-700'
 									: 'bg-gray-600'
 							}`}
 						>
@@ -95,7 +106,7 @@ const Navbar = () => {
 								to={'/movie'}
 								className={`flex items-center justify-center gap-2 rounded-md px-2 py-1 text-white hover:bg-gray-500 ${
 									window.location.pathname === '/movie'
-										? 'bg-gradient-to-br from-indigo-800 to-blue-700'
+										? 'bg-gradient-to-br from-red-800 to-red-700'
 										: 'bg-gray-600'
 								}`}
 							>
@@ -106,7 +117,7 @@ const Navbar = () => {
 								to={'/search'}
 								className={`flex items-center justify-center gap-2 rounded-md px-2 py-1 text-white hover:bg-gray-500 ${
 									window.location.pathname === '/search'
-										? 'bg-gradient-to-br from-indigo-800 to-blue-700'
+										? 'bg-gradient-to-br from-red-800 to-red-700'
 										: 'bg-gray-600'
 								}`}
 							>
@@ -117,7 +128,7 @@ const Navbar = () => {
 								to={'/user'}
 								className={`flex items-center justify-center gap-2 rounded-md px-2 py-1 text-white hover:bg-gray-500 ${
 									window.location.pathname === '/user'
-										? 'bg-gradient-to-br from-indigo-800 to-blue-700'
+										? 'bg-gradient-to-br from-red-800 to-red-700'
 										: 'bg-gray-600'
 								}`}
 							>
@@ -133,14 +144,14 @@ const Navbar = () => {
 					)}
 					{auth.token ? (
 						<button
-							className="rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 px-2 py-1 text-white drop-shadow-md hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
+							className="rounded-lg bg-gradient-to-br from-red-600 to-red-500 px-2 py-1 text-white drop-shadow-md hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
 							onClick={() => onLogout()}
 							disabled={isLoggingOut}
 						>
 							{isLoggingOut ? 'Processing...' : 'Logout'}
 						</button>
 					) : (
-						<button className="rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 px-2 py-1 text-white drop-shadow-md hover:from-indigo-500 hover:to-blue-400">
+						<button className="rounded-lg bg-gradient-to-br from-red-600 to-red-500 px-2 py-1 text-white drop-shadow-md hover:from-red-500 hover:to-red-400">
 							<Link to={'/login'}>Login</Link>
 						</button>
 					)}
@@ -162,6 +173,21 @@ const Navbar = () => {
 				>
 					<Bars3Icon className="h-6 w-6 text-white" />
 				</button>
+			</div>
+			{/* Search Form */}
+			<div className="flex items-center gap-4 w-full max-w-md lg:max-w-sm">
+				<form onSubmit={handleSearch} className="flex items-center gap-2 w-full">
+					<input
+						type="text"
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						placeholder="Search movies, locations, cinemas..."
+						className="flex-1 px-3 py-1 rounded-md text-black text-sm"
+					/>
+					<button type="submit" disabled={isSearching} className="p-1 hover:bg-gray-700 rounded">
+						<MagnifyingGlassIcon className="h-5 w-5 text-white" />
+					</button>
+				</form>
 			</div>
 			<div className="hidden grow justify-between gap-2 lg:flex">{menuLists()}</div>
 			{menuOpen && <div className="flex w-full grow flex-col gap-2 lg:hidden">{menuLists()}</div>}

@@ -28,8 +28,14 @@ const app = express()
 const FRONTEND_URLS = [
 	'https://cine-booker.vercel.app',
 	'https://www.cine-booker.vercel.app',
-	'http://localhost:3000', // for local development
-	'http://localhost:3001'  // backup local port
+	'http://localhost:3000',
+	'http://localhost:3001',
+	'http://localhost:5173',
+	'http://localhost:5174',
+	'http://localhost:5175',
+	'http://localhost:5176',
+	'http://localhost:5177',
+	'http://localhost:5178'
 ]
 
 // CORS configuration - THIS IS CRITICAL FOR CROSS-ORIGIN REQUESTS
@@ -136,8 +142,6 @@ app.use('*', (req, res) => {
 
 const port = process.env.PORT || 8080
 
-app.listen(port, '0.0.0.0', () => {
-	console.log(`Server running on port ${port}`)
 if (require.main === module) {
 	app.listen(port, '0.0.0.0', () => {
 		console.log(`Server running on port ${port}`)
