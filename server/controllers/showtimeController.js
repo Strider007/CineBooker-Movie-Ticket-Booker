@@ -2,6 +2,7 @@ const Movie = require('../models/Movie')
 const Showtime = require('../models/Showtime')
 const Theater = require('../models/Theater')
 const User = require('../models/User')
+const { parseSearchIntent } = require('../utils/aiParser');
 
 //@desc     GET showtimes
 //@route    GET /showtime
@@ -287,3 +288,143 @@ exports.deletePreviousShowtime = async (req, res, next) => {
 		res.status(400).json({ success: false, message: err })
 	}
 }
+
+//@desc     Smart Search using AI intent parsing
+//@route    GET /showtime/smart-search
+//@access   Public
+exports.smartSearch = async (req, res, next) => {
+    try {
+        const { query } = req.query;
+        if (!query) {
+            return res.status(400).json({ success: false, message: "Please provide a search query" });
+        }
+
+        // 1. Get structured intent from AI
+        const intent = await parseSearchIntent(query);
+
+        // 2. Build MongoDB query based on AI intent
+        let queryConditions = { isRelease: true };
+
+        // Add time-based filtering
+        if (intent.timeFilter) {
+            const now = new Date();
+            let startDate, endDate;
+
+            switch (intent.timeFilter) {
+                case 'today':
+                    startDate = new Date(now);
+                    startDate.setHours(0, 0, 0, 0);
+                    endDate = new Date(now);
+                    endDate.setHours(23, 59, 59, 999);
+                    break;
+                case 'tomorrow':
+                    startDate = new Date(now);
+                    startDate.setDate(now.getDate() + 1);
+                    startDate.setHours(0, 0, 0, 0);
+                    endDate = new Date(startDate);
+                    endDate.setHours(23, 59, 59, 999);
+                    break;
+                case 'this_week':
+                    startDate = new Date(now);
+                    startDate.setHours(0, 0, 0, 0);
+                    endDate = new Date(now);
+                    endDate.setDate(now.getDate() + 7);
+                    endDate.setHours(23, 59, 59, 999);
+                    break;
+                case 'weekend':
+                    const dayOfWeek = now.getDay();
+                    const daysUntilSaturday = (6 - dayOfWeek) % 7;
+                    startDate = new Date(now);
+                    startDate.setDate(now.getDate() + (daysUntilSaturday === 0 ? 0 : daysUntilSaturday));
+                    startDate.setHours(0, 0, 0, 0);
+                    endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + 1);
+                    endDate.setHours(23, 59, 59, 999);
+                    break;
+                case 'morning':
+                    // Will be filtered after query
+                    break;
+                case 'afternoon':
+                    // Will be filtered after query
+                    break;
+                case 'evening':
+                    // Will be filtered after query
+                    break;
+                case 'night':
+                    // Will be filtered after query
+                    break;
+            }
+
+            if (startDate && endDate) {
+                queryConditions.showtime = { $gte: startDate, $lte: endDate };
+            }
+        }
+
+        // 3. Initial Fetch with deep population (Showtime -> Theater -> Cinema)
+        let showtimes = await Showtime.find(queryConditions)
+            .populate('movie')
+            .populate({
+                path: 'theater',
+                populate: { path: 'cinema', select: 'name' },
+                select: 'number cinema'
+            });
+
+        // 4. Filter by Movie Title (if AI found one)
+        if (intent.movieTitle) {
+            const title = intent.movieTitle.toLowerCase();
+            showtimes = showtimes.filter(st =>
+                st.movie && st.movie.name.toLowerCase().includes(title)
+            );
+        }
+
+        // 5. Filter by Cinema Name (if AI found one)
+        if (intent.cinemaName) {
+            const cinemaName = intent.cinemaName.toLowerCase();
+            showtimes = showtimes.filter(st =>
+                st.theater && st.theater.cinema &&
+                st.theater.cinema.name.toLowerCase().includes(cinemaName)
+            );
+        }
+
+        // 6. Filter by Location (if AI found one, e.g., "Raja Park")
+        if (intent.location) {
+            const loc = intent.location.toLowerCase();
+            showtimes = showtimes.filter(st => {
+                if (!st.theater || !st.theater.cinema) return false;
+                const cinemaName = st.theater.cinema.name.toLowerCase();
+                // Check cinema name for the location keyword (locations are embedded in cinema names)
+                return cinemaName.includes(loc);
+            });
+        }
+
+        // 7. Filter by time of day (morning/afternoon/evening/night)
+        if (intent.timeFilter && ['morning', 'afternoon', 'evening', 'night'].includes(intent.timeFilter)) {
+            showtimes = showtimes.filter(st => {
+                const hour = new Date(st.showtime).getHours();
+                switch (intent.timeFilter) {
+                    case 'morning': return hour >= 6 && hour < 12;
+                    case 'afternoon': return hour >= 12 && hour < 17;
+                    case 'evening': return hour >= 17 && hour < 22;
+                    case 'night': return hour >= 22 || hour < 6;
+                    default: return true;
+                }
+            });
+        }
+
+        // 8. Apply Sorting (only showtime sorting available)
+        if (intent.sort === 'showtime') {
+            showtimes.sort((a, b) => new Date(a.showtime) - new Date(b.showtime));
+        }
+
+        res.status(200).json({
+            success: true,
+            count: showtimes.length,
+            ai_interpretation: intent,
+            data: showtimes
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Server Error during smart search" });
+    }
+};

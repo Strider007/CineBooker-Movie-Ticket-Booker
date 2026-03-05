@@ -10,6 +10,7 @@ import Purchase from "./pages/Purchase";
 import Register from "./pages/Register";
 import Schedule from "./pages/Schedule";
 import Search from "./pages/Search";
+import SearchResults from "./pages/SearchResults";
 import Showtime from "./pages/Showtime";
 import Tickets from "./pages/Tickets";
 import User from "./pages/User";
@@ -43,6 +44,7 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route path="/search-results" element={<SearchResults />} />
         <Route path="/showtime/:id" element={<Showtime />} />
         <Route path="/purchase/:id" element={<Purchase />} />
         <Route path="/ticket" element={<Tickets />} />

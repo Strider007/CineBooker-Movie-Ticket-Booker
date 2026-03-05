@@ -60,7 +60,7 @@ const CinemaLists = ({
 			cinemasList.map((cinema, index) => {
 				return cinemas[selectedCinemaIndex]?._id === cinema._id ? (
 					<button
-						className="w-fit rounded-md bg-gradient-to-br from-indigo-800 to-blue-700 px-2.5 py-1.5 text-lg font-medium text-white drop-shadow-xl hover:from-indigo-700 hover:to-blue-600"
+						className="w-fit rounded-md bg-gradient-to-br from-red-800 to-red-700 px-2.5 py-1.5 text-lg font-medium text-white drop-shadow-xl hover:from-red-700 hover:to-red-600"
 						onClick={() => {
 							setSelectedCinemaIndex(null)
 							sessionStorage.setItem('selectedCinemaIndex', null)
@@ -71,7 +71,7 @@ const CinemaLists = ({
 					</button>
 				) : (
 					<button
-						className="w-fit rounded-md bg-gradient-to-br from-indigo-800 to-blue-700 px-2 py-1 font-medium text-white drop-shadow-md hover:from-indigo-700 hover:to-blue-600"
+						className="w-fit rounded-md bg-gradient-to-br from-red-800 to-red-700 px-2 py-1 font-medium text-white drop-shadow-md hover:from-red-700 hover:to-red-600"
 						onClick={() => {
 							setSelectedCinemaIndex(index)
 							sessionStorage.setItem('selectedCinemaIndex', index)
@@ -89,7 +89,7 @@ const CinemaLists = ({
 
 	return (
 		<>
-			<div className="mx-4 flex h-fit flex-col gap-4 rounded-md bg-gradient-to-br from-indigo-200 to-blue-100 p-4 text-gray-900 drop-shadow-xl sm:mx-8 sm:p-6">
+			<div className="mx-4 flex h-fit flex-col gap-4 rounded-md bg-gradient-to-br from-red-200 to-red-100 p-4 text-gray-900 drop-shadow-xl sm:mx-8 sm:p-6">
 				<form
 					className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2"
 					onSubmit={handleSubmit(onAddCinema)}
@@ -105,7 +105,7 @@ const CinemaLists = ({
 							/>
 							<button
 								disabled={isAdding}
-								className="flex items-center whitespace-nowrap rounded-r-md bg-gradient-to-r from-indigo-600 to-blue-500 px-2 py-1 font-medium text-white hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
+								className="flex items-center whitespace-nowrap rounded-r-md bg-gradient-to-r from-red-600 to-red-500 px-2 py-1 font-medium text-white hover:from-red-500 hover:to-red-400 disabled:from-slate-500 disabled:to-slate-400"
 							>
 								{isAdding ? 'Processing...' : 'ADD +'}
 							</button>

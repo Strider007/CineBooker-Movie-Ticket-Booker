@@ -3,7 +3,7 @@ import Loading from './Loading'
 
 const NowShowing = ({ movies, selectedMovieIndex, setSelectedMovieIndex, auth, isFetchingMoviesDone }) => {
 	return (
-		<div className="mx-4 flex flex-col rounded-md bg-gradient-to-br from-indigo-200 to-blue-100 p-4 text-gray-900 drop-shadow-md sm:mx-8 sm:p-6">
+		<div className="mx-4 flex flex-col rounded-md bg-gradient-to-br from-red-200 to-red-100 p-4 text-gray-900 drop-shadow-md sm:mx-8 sm:p-6">
 			<h2 className="text-3xl font-bold">Now Showing</h2>
 			{isFetchingMoviesDone ? (
 				movies.length ? (
@@ -14,7 +14,7 @@ const NowShowing = ({ movies, selectedMovieIndex, setSelectedMovieIndex, auth, i
 									<div
 										key={index}
 										title={movie.name}
-										className="flex w-[108px] flex-col rounded-md bg-gradient-to-br from-indigo-600 to-blue-500 p-1 text-white drop-shadow-md hover:from-indigo-500 hover:to-blue-400 sm:w-[144px]"
+										className="flex w-[108px] flex-col rounded-md bg-gradient-to-br from-red-600 to-red-500 p-1 text-white drop-shadow-md transition-all duration-300 hover:from-red-500 hover:to-red-400 sm:w-[144px]"
 										onClick={() => {
 											setSelectedMovieIndex(null)
 											sessionStorage.setItem('selectedMovieIndex', null)
@@ -31,7 +31,7 @@ const NowShowing = ({ movies, selectedMovieIndex, setSelectedMovieIndex, auth, i
 								) : (
 									<div
 										key={index}
-										className="flex w-[108px] flex-col rounded-md bg-white p-1 drop-shadow-md hover:bg-gradient-to-br hover:from-indigo-500 hover:to-blue-400 hover:text-white sm:w-[144px]"
+										className="flex w-[108px] flex-col rounded-md bg-white p-1 drop-shadow-md transition-all duration-300 hover:bg-gradient-to-br hover:from-red-500 hover:to-red-400 hover:text-white sm:w-[144px]"
 										onClick={() => {
 											setSelectedMovieIndex(index)
 											sessionStorage.setItem('selectedMovieIndex', index)

@@ -26,10 +26,12 @@ const app = express()
 
 // Frontend URLs (remove trailing slash and add both www and non-www versions)
 const FRONTEND_URLS = [
-	'https://cine-booker.vercel.app',
-	'https://www.cine-booker.vercel.app',
-	'http://localhost:3000', // for local development
-	'http://localhost:3001'  // backup local port
+    'https://cine-booker.vercel.app',
+    'https://www.cine-booker.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3000', // Add this (common for some browsers)
+    'http://localhost:5173'  // Add this if you are using Vite
 ]
 
 // CORS configuration - THIS IS CRITICAL FOR CROSS-ORIGIN REQUESTS
@@ -136,8 +138,12 @@ app.use('*', (req, res) => {
 
 const port = process.env.PORT || 8080
 
-app.listen(port, '0.0.0.0', () => {
-	console.log(`Server running on port ${port}`)
-	console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
-	console.log(`Allowed origins: ${FRONTEND_URLS.join(', ')}`)
-})
+if (require.main === module) {
+	app.listen(port, '0.0.0.0', () => {
+		console.log(`Server running on port ${port}`)
+		console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
+		console.log(`Allowed origins: ${FRONTEND_URLS.join(', ')}`)
+	})
+}
+
+module.exports = app

@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
 const Register = () => {
 	const navigate = useNavigate()
 	const [errorsMessage, setErrorsMessage] = useState('')
 	const [isRegistering, SetIsRegistering] = useState(false)
+	const [showPassword, setShowPassword] = useState(false)
 
 	const {
 		register,
@@ -42,11 +44,11 @@ const Register = () => {
 	}
 
 	const inputClasses = () => {
-		return 'appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-blue-500'
+		return 'appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-red-500'
 	}
 
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-900 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
+		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-red-900 to-red-500 py-12 px-4 sm:px-6 lg:px-8">
 			<div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-4 shadow-xl">
 				<div>
 					<h2 className="mt-4 text-center text-4xl font-extrabold text-gray-900">Register</h2>
@@ -72,27 +74,41 @@ const Register = () => {
 					/>
 					{errors.email && <span className="text-sm text-red-500">Email is required</span>}
 
-					<input
-						name="password"
-						type="password"
-						autoComplete="current-password"
-						{...register('password', {
-							required: 'Password is required',
-							minLength: {
-								value: 6,
-								message: 'Password must be at least 6 characters long'
-							}
-						})}
-						className={`${inputClasses()} ${errors.password ? 'border-red-500' : ''}`}
-						placeholder="Password"
-					/>
+					<div className="relative">
+						<input
+							name="password"
+							type={showPassword ? 'text' : 'password'}
+							autoComplete="current-password"
+							{...register('password', {
+								required: 'Password is required',
+								minLength: {
+									value: 6,
+									message: 'Password must be at least 6 characters long'
+								}
+							})}
+							className={`${inputClasses()} ${errors.password ? 'border-red-500' : ''} pr-10`}
+							placeholder="Password"
+						/>
+						<button
+							type="button"
+							className="absolute inset-y-0 right-0 pr-3 flex items-center"
+							onClick={() => setShowPassword(!showPassword)}
+							aria-label={showPassword ? 'Hide password' : 'Show password'}
+						>
+							{showPassword ? (
+								<EyeSlashIcon className="h-5 w-5 text-gray-400" />
+							) : (
+								<EyeIcon className="h-5 w-5 text-gray-400" />
+							)}
+						</button>
+					</div>
 					{errors.password && <span className="text-sm text-red-500">{errors.password?.message}</span>}
 
 					<div>
 						{errorsMessage && <span className="text-sm text-red-500">{errorsMessage}</span>}
 						<button
 							type="submit"
-							className="mt-4 w-full rounded-md bg-blue-600 bg-gradient-to-br from-indigo-600 to-blue-500 py-2 px-4 font-medium text-white drop-shadow-md hover:bg-blue-700 hover:from-indigo-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:from-slate-500 disabled:to-slate-400"
+							className="mt-4 w-full rounded-md bg-red-600 bg-gradient-to-br from-red-600 to-red-500 py-2 px-4 font-medium text-white drop-shadow-md hover:bg-red-700 hover:from-red-500 hover:to-red-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:from-slate-500 disabled:to-slate-400"
 							disabled={isRegistering}
 						>
 							{isRegistering ? 'Processing...' : 'Register'}
@@ -100,7 +116,7 @@ const Register = () => {
 					</div>
 					<p className="text-right">
 						Already have an account?{' '}
-						<Link to="/login" className="font-bold text-blue-600">
+						<Link to="/login" className="font-bold text-red-600">
 							Login here
 						</Link>
 					</p>
