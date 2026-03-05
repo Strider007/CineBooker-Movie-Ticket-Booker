@@ -26,12 +26,13 @@ const app = express()
 
 // Frontend URLs (remove trailing slash and add both www and non-www versions)
 const FRONTEND_URLS = [
-	'https://cine-booker-frontend.vercel.app',
-	'https://cine-booker.vercel.app',
-	'https://www.cine-booker.vercel.app',
-	'http://localhost:3000',
-	'http://localhost:3001',
-	'http://localhost:5173',
+ 'https://cine-booker-frontend.vercel.app',
+    'https://cine-booker-frontend-12en0ylam-strider007s-projects.vercel.app', // Added from logs
+    'https://cine-booker-frontend-strider007s-projects.vercel.app', // Added general project URL
+    'https://cine-booker.vercel.app',
+    'https://www.cine-booker.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173',
 	'http://localhost:5174',
 	'http://localhost:5175',
 	'http://localhost:5176',
