@@ -138,6 +138,12 @@ const port = process.env.PORT || 8080
 
 app.listen(port, '0.0.0.0', () => {
 	console.log(`Server running on port ${port}`)
-	console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
-	console.log(`Allowed origins: ${FRONTEND_URLS.join(', ')}`)
-})
+if (require.main === module) {
+	app.listen(port, '0.0.0.0', () => {
+		console.log(`Server running on port ${port}`)
+		console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
+		console.log(`Allowed origins: ${FRONTEND_URLS.join(', ')}`)
+	})
+}
+
+module.exports = app
