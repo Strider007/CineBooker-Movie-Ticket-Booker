@@ -16,7 +16,7 @@ import Tickets from "./pages/Tickets";
 import User from "./pages/User";
 
 axios.defaults.baseURL =
-  import.meta.env.VITE_SERVER_URL || "http://localhost:8080";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 axios.defaults.withCredentials = true;
 
 function App() {
