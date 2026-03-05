@@ -15,12 +15,18 @@ const movie = require('./routes/movie')
 const showtime = require('./routes/showtime')
 
 mongoose.set('strictQuery', false)
-mongoose
-	.connect(process.env.DATABASE, { autoIndex: true })
-	.then(() => {
+const connectDB = async () => {
+	if (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2) {
+		return
+	}
+	try {
+		await mongoose.connect(process.env.DATABASE, { autoIndex: true })
 		console.log('mongoose connected!')
-	})
-	.catch((err) => console.log(err))
+	} catch (err) {
+		console.log(err)
+	}
+}
+connectDB()
 
 const app = express()
 
