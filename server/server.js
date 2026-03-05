@@ -48,17 +48,18 @@ const FRONTEND_URLS = [
 
 // CORS configuration - THIS IS CRITICAL FOR CROSS-ORIGIN REQUESTS
 const corsOptions = {
-	origin: function (origin, callback) {
-		// Allow requests with no origin (mobile apps, postman, etc.)
-		if (!origin) return callback(null, true)
+	// origin: function (origin, callback) {
+	// 	// Allow requests with no origin (mobile apps, postman, etc.)
+	// 	if (!origin) return callback(null, true)
 		
-		if (FRONTEND_URLS.includes(origin)) {
-			callback(null, true)
-		} else {
-			console.log('Blocked by CORS:', origin)
-			callback(new Error('Not allowed by CORS'))
-		}
-	},
+	// 	if (FRONTEND_URLS.includes(origin)) {
+	// 		callback(null, true)
+	// 	} else {
+	// 		console.log('Blocked by CORS:', origin)
+	// 		callback(new Error('Not allowed by CORS'))
+	// 	}
+	// },
+	origin: "*",
 	credentials: true, // Allow cookies to be sent
 	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 	allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
