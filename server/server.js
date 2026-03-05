@@ -119,6 +119,10 @@ app.use('/theater', theater)
 app.use('/movie', movie)
 app.use('/showtime', showtime)
 
+app.get('/', (req, res) => {
+	res.status(200).json({ status: 'API OK' })
+})
+
 // Catch-all error handler
 app.use((err, req, res, next) => {
 	console.error('Error:', err.message)
